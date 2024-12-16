@@ -1,0 +1,26 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: manipulator_h_description
+    relative_path: urdf/manipulator_h.xacro
+    #  Apparently, regardless of the path put here, it searches for  /manipulator_h_description/urdf/manipulator_h.xacro
+  srdf:
+    relative_path: config/manipulator_h.srdf
+  package_settings:
+    author_name: Gabriel de Souza Oliveira
+    author_email: gabriel.oliveira.dse@gmail.com
+    generated_timestamp: 1731608526
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

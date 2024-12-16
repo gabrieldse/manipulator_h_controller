@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="manipulator_h">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+    <!-- Import manipulator_h urdf file -->
+    <xacro:include filename="$(find manipulator_h_description)/urdf/manipulator_h.xacro" />
+    <link name="world"/>
+
+    <xacro:manipulator_h parent="world">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:manipulator_h>
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="manipulator_h.ros2_control.xacro" />
+
+
+    <xacro:manipulator_h_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+
+</robot>
