@@ -4,16 +4,16 @@
 
     <!-- Import manipulator_h urdf file -->
     <xacro:include filename="$(find manipulator_h_description)/urdf/manipulator_h.xacro" />
+    
     <link name="world"/>
-
     <xacro:manipulator_h parent="world">
         <origin xyz="0 0 0" rpy="0 0 0" />
     </xacro:manipulator_h>
 
-    <!-- Import control_xacro -->
+    <!-- Import ros2_control_xacro -->
     <xacro:include filename="manipulator_h.ros2_control.xacro" />
 
-
-    <xacro:manipulator_h_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+    <!-- Import ros2_control_xacro -->
+    <xacro:manipulator_h_ros2_control name="Dynamixel_Hardware_ros2_control" initial_positions_file="$(arg initial_positions_file)"/>
 
 </robot>
