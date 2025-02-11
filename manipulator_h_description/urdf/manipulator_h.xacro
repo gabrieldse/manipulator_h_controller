@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<!-- Revolute-Revolute Manipulator -->
+
 <robot name="robotis_manipulator_h" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <!-- some parameters -->
     <!-- <xacro:property name="pi" value="3.141592654" /> -->
 
     <!-- Import all Gazebo-customization elements, including Gazebo colors -->
-    <!-- <xacro:include filename="$(find manipulator_h_description)/urdf/manipulator_h.gazebo" /> -->
+    <xacro:include filename="$(find manipulator_h_description)/urdf/manipulator_h.gazebo" />
     <!-- Import Rviz colors -->
     <xacro:include filename="$(find manipulator_h_description)/urdf/materials.xacro" />
 
@@ -21,7 +21,7 @@
       <child link="link1"/>
     </joint> -->
 
-    <joint name="origin_to_link1" type="fixed">
+    <joint name="world_fixed" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}" />
       <child link="link1" />
@@ -33,14 +33,14 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_1.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_1.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_1.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_1.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="white"/>
       </visual>
@@ -80,14 +80,14 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_2.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_2.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_2.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_2.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="white"/>
       </visual>
@@ -127,14 +127,14 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_3.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_3.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_3.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_3.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="white"/>
       </visual>
@@ -174,14 +174,14 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_4.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_4.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_4.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_4.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="white"/>
       </visual>
@@ -221,14 +221,14 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_5.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_5.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_5.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_5.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="white"/>
       </visual>
@@ -268,14 +268,14 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_6.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_6.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/link_6.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/link_6.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="white"/>
       </visual>
@@ -315,14 +315,14 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/end_link.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/end_link.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://manipulator_h_description/meshes/end_link.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find manipulator_h_description)/meshes/end_link.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="white"/>
       </visual>
