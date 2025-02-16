@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot name="manipulator_h" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find manipulator_h_description)/urdf/manipulator_h.xacro" />
+  <xacro:include filename="$(find manipulator_h_description)/urdf/manipulator_h.ros2_control.xacro" />
 
   <link name="world"/>
 
@@ -8,4 +9,5 @@
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:manipulator_h>
 
+  <xacro:manipulator_h_ros2_control name="manipulator_h_ros2_control" />
 </robot>

@@ -6,31 +6,33 @@ import xacro
 
 def generate_launch_description():
     manipulator_description_path = os.path.join(
-        get_package_share_directory('manipulator_h_description'), 'urdf', 'manipulator_h.xacro'
+        get_package_share_directory('manipulator_h_description'), 'urdf', 'manipulator_h.urdf.xacro'
     )
+    
     rviz_config_path = os.path.join(
         get_package_share_directory('manipulator_h_description'), 'launch', 'manipulator_h.rviz'
     )
 
-    robot_description_config = xacro.process_file(manipulator_description_path).toxml()
-    
-    return LaunchDescription([
-        # Joint state publisher
-        Node(
-            package='joint_state_publisher',
-            executable='joint_state_publisher',
-            name='joint_state_publisher',
-            parameters=[{'use_gui': True}],
-        ),
+    robot_description_config = xacro.process_file(manipulator_description_path)
+
+
+    package_name = "manipulator_h_description"
+    controller_config = os.path.join(
+        get_package_share_directory(
+            package_name), "controllers", "controllers.yaml"
+    )
+     
+    return LaunchDescription([    
         
-         # Robot state publisher
         Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            name='robot_state_publisher',
-            output='screen',
-            parameters=[{'robot_description': robot_description_config}],
+            package="robot_state_publisher",
+            executable="robot_state_publisher",
+            name="robot_state_publisher",
+            parameters=[
+                {"robot_description": robot_description_config.toxml()}],
+            output="screen",
         ),
+    
 
         # RViz node
         Node(

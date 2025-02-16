@@ -2,15 +2,17 @@
 
 <robot name="robotis_manipulator_h" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <xacro:property name="prefix" value ="manipulator_h"/>
+
     <!-- some parameters -->
     <!-- <xacro:property name="pi" value="3.141592654" /> -->
 
     <!-- Import all Gazebo-customization elements, including Gazebo colors -->
-    <xacro:include filename="$(find manipulator_h_description)/urdf/manipulator_h.gazebo" />
+  <xacro:include filename="$(find manipulator_h_description)/urdf/manipulator_h.gazebo" />
     <!-- Import Rviz colors -->
-    <xacro:include filename="$(find manipulator_h_description)/urdf/materials.xacro" />
+  <xacro:include filename="$(find manipulator_h_description)/urdf/materials.xacro" />
 
-  <xacro:macro name="manipulator_h" params="parent *origin">
+  <xacro:macro name="manipulator_h" params="parent prefix *origin">
     <!-- Used for fixing robot to Gazebo 'link 1' -->
     <!-- <link name="world">
     </link> -->
@@ -21,8 +23,8 @@
       <child link="link1"/>
     </joint> -->
 
-    <joint name="world_fixed" type="fixed">
-      <xacro:insert_block name="origin" />
+    <joint name="${prefix}_world_fixed" type="fixed">
+      <xacro:insert_block name="origin"/>
       <parent link="${parent}" />
       <child link="link1" />
       <axis xyz="0 0 1" />
