@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<robot name="manipulator_h_with_gripper" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Include ARM and Gripper Xacro files first -->
+  <xacro:include filename="$(find manipulator_h_description)/urdf/manipulator_h.xacro"/>
+  <xacro:include filename="$(find manipulator_h_description)/urdf/umi_gripper.xacro"/>
+  <!-- <xacro:include filename="$(find manipulator_h_description)/urdf/manipulator_h.ros2_control.xacro"/> -->
+  
+
+  <!-- Define World Link -->
+  <link name="world"/>
+
+  <!-- Manipulator Arm -->
+  <xacro:manipulator_h prefix="arm" parent="world">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:manipulator_h>
+
+  <!-- Gripper (Attached to the end link of the manipulator) -->
+  <xacro:umi_gripper parent="end_link" prefix="gripper">
+    <origin xyz="0.025 0 0" rpy="0 0 -1.57075"/>   <!-- Rotate 90 degrees to match arm orientation -->
+
+  </xacro:umi_gripper>
+
+  <!-- Controllers -->
+  <!-- <xacro:manipulator_h_ros2_control name="manipulator_h_ros2_control"/> -->
+
+</robot>

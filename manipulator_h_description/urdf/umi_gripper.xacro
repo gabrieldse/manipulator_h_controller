@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+
+<robot name="umi_gripper" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="prefix" value=""/>
+
+  <xacro:macro name="umi_gripper" params="parent *origin prefix">
+  
+
+
+    <joint name="${prefix}_world_fixed" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}" />
+        <child link="bottom_plate" />
+        <axis xyz="0 0 0" />
+      </joint>
+
+    <!-- Bottom Plate (Fixed at 0, 0, 0) -->
+    <link name="bottom_plate">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/bottom_plate.stl" />
+        </geometry>
+        <material name="bottom_plate_material">
+          <color rgba="0.61568627450980395466 0.81176470588235294379 0.92941176470588238168 1.0" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/bottom_plate.stl" />
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- ****************************** LEFT FINGER ***************************************  -->
+    <!-- Left Finger Holder -->
+    <link name="finger_holder_left">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/finger_holder_left.stl" />
+        </geometry>
+        <material name="finger_holder_left_material">
+          <color rgba="0.76862745098039220171 0.88627450980392152857 0.95294117647058818044 1.0" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/finger_holder_left.stl" />
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Left Soft Gripper Finger -->
+    <link name="soft_gripper_finger_left">
+      <visual>
+        <origin xyz="-0.039996033844509497335 0.077987804878048766488 -0.015099999999999983227"
+          rpy="-1.570796326794896558 -0 3.141592653589793116" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/soft_gripper_finger.stl" />
+        </geometry>
+        <material name="soft_gripper_finger_material">
+          <color rgba="0.2313725490196078538 0.38039215686274507888 0.7058823529411765163 1.0" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="-0.039996033844509497335 0.077987804878048766488 -0.015099999999999983227"
+          rpy="-1.570796326794896558 -0 3.141592653589793116" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/soft_gripper_finger.stl" />
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- ****************************** LEFT FINGER  JOINTS ***************************************  -->
+    <joint name="joint_finger_holder_left" type="prismatic">
+      <parent link="bottom_plate" />
+      <child link="finger_holder_left" />
+      <axis xyz="1 0 0" />
+      <limit lower="0" upper="0.040" effort="100" velocity="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+    <!-- Prismatic Joint connecting Soft Gripper Fingers (Left and Right) to Bottom Plate -->
+    <joint name="joint_soft_gripper_finger_left_fixed" type="fixed">
+      <parent link="finger_holder_left" />
+      <child link="soft_gripper_finger_left" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+    <!-- ****************************** RIGHT FINGER ***************************************  -->
+    <!-- Right Finger Holder -->
+    <link name="finger_holder_right">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/finger_holder_right.stl" />
+        </geometry>
+        <material name="finger_holder_right_material">
+          <color rgba="0.76862745098039220171 0.88627450980392152857 0.95294117647058818044 1.0" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/finger_holder_right.stl" />
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Right Soft Gripper Finger -->
+    <link name="soft_gripper_finger_right">
+      <visual>
+        <origin xyz="0.039426928153452604764 0.07798317769664303567 0.010700000000000016789"
+          rpy="1.570796326794896558 -0 0" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/soft_gripper_finger.stl" />
+        </geometry>
+        <material name="soft_gripper_finger_material">
+          <color rgba="0.2313725490196078538 0.38039215686274507888 0.7058823529411765163 1.0" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0.039426928153452604764 0.07798317769664303567 0.010700000000000016789"
+          rpy="1.570796326794896558 -0 0" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/soft_gripper_finger.stl" />
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- ****************************** LEFT FINGER  JOINTS ***************************************  -->
+    <joint name="joint_finger_holder_right" type="prismatic">
+      <parent link="bottom_plate" />
+      <child link="finger_holder_right" />
+      <axis xyz="1 0 0" />
+      <limit lower="-0.040" upper="0" effort="100" velocity="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+    <joint name="joint_fingers_right_fixed" type="fixed">
+      <parent link="finger_holder_right" />
+      <child link="soft_gripper_finger_right" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+    <!-- ****************************** CASE ***************************************  -->
+
+    <link name="top_cover">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/top_cover.stl" />
+        </geometry>
+        <material name="top_cover_material">
+          <color rgba="0.97254901960784312376 0.52941176470588235947 0.0039215686274509803377 1.0" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 3.4694469519536141888e-18" rpy="0 -0 0" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/top_cover.stl" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="joint_top_cover_fixed" type="fixed">
+      <parent link="bottom_plate" />
+      <child link="top_cover" />
+      <origin xyz="0 0 0" rpy="0 -0 0" />
+    </joint>
+
+    <!-- ****************************** CAMERA ***************************************  -->
+
+    <link name="go_pro">
+      <visual>
+        <origin xyz="0.01964999999999999733 -0.019100000000000033618 0.074250000000000010436"
+          rpy="0 -0 3.141592653589793116" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/go_pro.stl" />
+        </geometry>
+        <material name="go_pro_material">
+          <color
+            rgba="0.10196078431372548878 0.10196078431372548878 0.10196078431372548878 1.0" />
+        </material>
+      </visual>
+
+      <collision>
+        <origin xyz="0.01964999999999999733 -0.019100000000000033618 0.074250000000000010436"
+          rpy="0 -0 3.141592653589793116" />
+        <geometry>
+          <mesh filename="package://umi_gripper_description/meshes/go_pro.stl" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="joint_go_pro_fixed" type="fixed">
+      <parent link="bottom_plate" />
+      <child link="go_pro" />
+      <origin xyz="0 0 0" rpy="0 -0 0" />
+    </joint>
+
+  </xacro:macro>
+
+</robot>
