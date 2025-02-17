@@ -5,9 +5,9 @@
 
   <link name="world"/>
 
-  <xacro:manipulator_h parent="world">
+  <xacro:manipulator_h parent="world" prefix="arm">
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:manipulator_h>
 
-  <xacro:manipulator_h_ros2_control name="manipulator_h_ros2_control" />
+  <xacro:manipulator_h_ros2_control name="manipulator_h_ros2_control" use_dummy="true"/>
 </robot>

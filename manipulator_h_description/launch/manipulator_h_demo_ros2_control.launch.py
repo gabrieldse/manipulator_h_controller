@@ -8,7 +8,7 @@ import xacro
 
 def generate_launch_description():
     manipulator_description_path = os.path.join(
-        get_package_share_directory('manipulator_h_description'), 'urdf', 'manipulator_h.urdf.xacro'
+        get_package_share_directory('manipulator_h_description'), 'urdf', 'manipulator_h_ros2_control.urdf.xacro'
     )
     
     rviz_config_path = os.path.join(
@@ -50,12 +50,12 @@ def generate_launch_description():
             output="screen",
         ),
          
-        Node(
-            package="controller_manager",
-            executable="spawner",
-            arguments=["velocity_controller", "-c", "/controller_manager"],
-            output="screen",
-        ),
+        # Node(
+        #     package="controller_manager",
+        #     executable="spawner",
+        #     arguments=["velocity_controller", "-c", "/controller_manager"],
+        #     output="screen",
+        # ),
          
         Node(
             package="robot_state_publisher",

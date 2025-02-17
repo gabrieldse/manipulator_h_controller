@@ -5,6 +5,7 @@ moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControll
 moveit_simple_controller_manager:
   controller_names:
     - manipulator_h_arm_controller
+    - umi_gripper_controller
 
   manipulator_h_arm_controller:
     type: FollowJointTrajectory
@@ -19,3 +20,12 @@ moveit_simple_controller_manager:
       - joint6
     action_ns: follow_joint_trajectory
     default: true
+
+  umi_gripper_controller:
+    type: GripperCommand
+    action_ns: gripper_action
+    default: true
+    joints:
+      - gripper_joint
+
+

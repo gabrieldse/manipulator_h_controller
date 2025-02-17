@@ -22,7 +22,7 @@ def generate_launch_description():
         MoveItConfigsBuilder(
             "manipulator_h", package_name="manipulator_h_moveit_config"
         )
-        .robot_description(mappings=launch_arguments)
+        .robot_description(file_path=os.path.join(get_package_share_directory("manipulator_h_description"),"urdf","manipulator_h_ros2_control.urdf.xacro"))
         .trajectory_execution(file_path="config/moveit_controllers.yaml")
         .planning_scene_monitor(
             publish_robot_description=True, publish_robot_description_semantic=True

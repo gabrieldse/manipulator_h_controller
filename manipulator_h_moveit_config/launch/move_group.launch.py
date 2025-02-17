@@ -5,20 +5,24 @@ from launch.actions import ExecuteProcess
 from moveit_configs_utils import MoveItConfigsBuilder
 from moveit_configs_utils.launches import generate_move_group_launch
 from ament_index_python.packages import get_package_share_directory
-
-# old version
-# def generate_launch_description():
-#     moveit_config = MoveItConfigsBuilder("manipulator_h", package_name="manipulator_h_moveit_config").to_moveit_configs()
-#     return generate_move_group_launch(moveit_config)
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description():
+    
+    use_dummy_arg = DeclareLaunchArgument("use_dummy", default_value="true", description="Use dummy hardware")
+    use_dummy = LaunchConfiguration("use_dummy")
+    
+    
     moveit_config = (
         MoveItConfigsBuilder("manipulator_h", package_name="manipulator_h_moveit_config")
-        .robot_description(file_path=os.path.join(get_package_share_directory("manipulator_h_description"),"urdf","manipulator_h.urdf.xacro"))
+        .robot_description(file_path=os.path.join(get_package_share_directory("manipulator_h_description"),"urdf","manipulator_h_ros2_control.urdf.xacro"),
+            mappings={"use_dummy": use_dummy})
         .trajectory_execution(file_path="config/moveit_controllers.yaml")
         .to_moveit_configs()
     )
+    
     # Start the actual move_group node/action server
     run_move_group_node = Node(
         package="moveit_ros_move_group",
@@ -77,20 +81,6 @@ def generate_launch_description():
         output="both",
     )
 
-    # # Load controllers
-    # load_controllers = []
-    # for controller in [
-    #     "manipulator_h_arm_controller",
-    #     # "panda_hand_controller",
-    #     "joint_state_broadcaster",
-    # ]:
-    #     load_controllers += [
-    #         ExecuteProcess(
-    #             cmd=["ros2 run controller_manager spawner {}".format(controller)],
-    #             shell=True,
-    #             output="screen",
-    #         )
-    #     ]
     
     load_controllers = []
     for controller in [
@@ -107,6 +97,7 @@ def generate_launch_description():
     return LaunchDescription(
         [
             rviz_node,
+            use_dummy_arg,
             static_tf,
             robot_state_publisher,
             run_move_group_node,
